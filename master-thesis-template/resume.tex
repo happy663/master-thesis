@@ -1,0 +1,49 @@
+\documentclass[a4paper, 10pt, twocolumn]{jarticle}
+\pagestyle{empty}
+
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[top=20truemm, bottom=20truemm, left=18truemm, right=18truemm]{geometry}
+\usepackage{calc}
+\usepackage{titlesec}
+\usepackage{amsmath}
+
+\setlength{\columnsep}{\columnsep + 4zw}
+\setlength{\textheight}{49\baselineskip}
+\titleformat*{\section}{\normalsize\bfseries}
+\titleformat*{\subsection}{\normalsize\bfseries}
+
+\titlespacing{\section}{0pt}{4pt}{4pt}
+\titlespacing{\subsection}{0pt}{4pt}{4pt}
+\setlength{\intextsep}{10pt}
+\setlength{\textfloatsep}{10pt}
+
+\begin{document}
+\twocolumn
+[
+    \centering
+    \vspace{0.5\baselineskip}
+    {\large\bfseries
+        論文題目
+    } \\
+    \vspace{0.5\baselineskip}
+    B00000 八草一郎 指導教員 甲野太郎 \\
+    \vspace{\baselineskip}
+    キーワード: キーワード1，キーワード2，キーワード3
+    \vspace{\baselineskip}
+    \vspace{\baselineskip}
+]
+
+\section{はじめに}
+
+\section{背景}
+
+\section{目的と手法}
+
+\section{実験と評価}
+
+\section{おわりに}
+
+\bibliographystyle{junsrt}
+\bibliography{reference}
+
+\end{document}

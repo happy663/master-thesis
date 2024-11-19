@@ -1,0 +1,55 @@
+
+
+
+図\ref{fig:pdr-move}の軌跡にはPDR特有のドリフト現象が見られる．
+PDRでは角速度から進行方向を求めてその方向を元に歩行軌跡を描く．
+そのため角速度センサーにわずかでも誤差が含まれると，時間経過とともにその誤差が大きくなり軌跡の形状が本来の軌跡から外れる．
+この問題を解決するには角速度データに含まれる累積誤差を取り除く必要がある．
+
+
+\begin{lstlisting}[caption={ドリフト除去}, label=lst:remove-drift,float =h]
+def remove_drift_in_angle_df(
+    acc_df: pd.DataFrame,
+    angle_df: pd.DataFrame,
+    ground_truth_point_df: pd.DataFrame,
+) -> tuple[pd.DataFrame, pd.DataFrame]:
+\end{lstlisting}
+
+ドリフトを取り除く関数をListing\ref{lst:remove-drift}に示す．
+引数として加速度DF，角速度DF，正解座標DFを受け取る．
+戻り値は角度DFと座標DFを返す．
+ドリフト補正のプロセスは，ドリフトの値を動的に計算し，それを各時刻の角度データから差し引く．
+このドリフト補正プロセスは，式(1)で表される．
+$\theta'(t)$は時間$t$における補正後の角度，$\theta(t)$は補正前の角度，
+$\mathrm{d}$はドリフトの大きさを意味する．
+この式は時間経過に伴うドリフトの累積効果を補正するために使用される．
+
+
+\vspace{5mm} % 5mmの空白を追加。必要に応じて値を調整してください。
+\begin{equation}
+	\theta'(t) = \theta(t) - (\mathrm{d} \times (t))
+\end{equation}
+
+\vspace{5mm} % 5mmの空白を追加。必要に応じて値を調整してください。
+
+補正の効果を評価し適切なドリフトを見つけるために，ユークリッド距離を用いて，2つの正解座標の差異を計算する．
+式(2)は，正解座標$(x_{\mathrm{n}}, y_{\mathrm{n}})$と正解座標$(x_{\mathrm{n+1}}
+	y_{\mathrm{n+1}})$との間のユークリッド距離$\mathrm{E}$を示している．
+この式に基づきドリフト値に対してグリッドサーチを行い距離が最小になるドリフト値を探す．
+最小のドリフト値を角度DFから引きそれに基づいた座標DFと角度DFを返す．
+図\ref{fig:pdr-remove-drift}に示すように，ドリフト補正後の軌跡は，元の軌跡と比較して正解軌跡の形状に近づいている．
+このアルゴリズムでは正解座標$(x_{\mathrm{n}}, y_{\mathrm{n}})$と
+正解座標$(x_{\mathrm{n+1}}, y_{\mathrm{n+1}})$の距離が近い時に特に有効である．
+この処理は$(x_{\mathrm{n+2}}, y_{\mathrm{n+2}})$など2つ以上の座標が存在する場合も同様に適用できる．
+
+\vspace{5mm} % 5mmの空白を追加。必要に応じて値を調整してください。
+\begin{equation}
+	\mathrm{E} = \sqrt{(x_{\mathrm{n+1}} - x_{\mathrm{n}})^2 + (y_{\mathrm{n+1}} - y_{\mathrm{n}})^2}
+\end{equation}
+\vspace{5mm} % 5mmの空白を追加。必要に応じて値を調整してください。
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=80mm]{image/pdr-remove-drift-two.jpg}
+	\caption{ドリフト補正後の軌跡}    \label{fig:pdr-remove-drift}
+\end{figure}

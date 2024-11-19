@@ -1,0 +1,36 @@
+
+図\ref{fig:pdr-rotate}に示す軌跡の問題点として人間が歩行不可能領域を通過している点がある．
+現実の人間がこのような場所を通過しないため，このような軌跡は不適切である．
+そのため軌跡が歩行不可領域に存在する場合は，歩行可能な領域に移動させる処理が必要である．
+この問題を解決する処理としてListing\ref{lst:map-matching}にマップマッチング補正関数を示す．
+マップマッチング補正関数は引数に加速度DF，角度DF，フロアマップ情報DICT，フロア名，マップの1pxあたりの距離を取る．
+戻り値は座標DFのみを返す．内部の処理の関係上,補正後の角度DFは返すのが難しいためである．
+関数内部ではまず加速度と角度のデータを基にして軌跡を推定する．
+この軌跡に対して，各地点での座標が与えられたフロアマップ上の歩行可能な領域に存在するかどうかを検証する．
+検証の結果，各地点での座標が歩行不可能な領域に存在する場合，当該座標から最も近い歩行可能な座標を幅優先探索アルゴリズムを
+用いて探す．
+該当する座標が見つかった場合，該当座標と該当座標以降の軌跡の座標を歩行可能な座標に平行移動して補正を行う．
+当該座標の補正が終了後，次の座標に対して同様の処理を行う処理を繰り返す．
+これによって軌跡の各地点が歩行可能な領域に存在するようになり，軌跡全体が最適化される．
+図\ref{fig:map-matching}に示すように，マップマッチング補正後の軌跡では
+歩行不可能な領域に存在していた地点が歩行可能な地点に移動されている．
+
+
+\begin{lstlisting}[caption={マップマッチング補正}, label=lst:map-matching]
+def move_unwalkable_points_to_walkable(
+    acc_df: pd.DataFrame,
+    angle_df: pd.DataFrame,
+    map_dict: dict[str, np.ndarray],
+    floor_name: str,
+    dx: float,
+    dy: float,
+    ground_truth_first_point: dict[Axis2D, float]
+) -> pd.DataFrame:
+
+\end{lstlisting}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=80mm]{image/map-matching.jpg}
+	\caption{マップマッチング補正後の軌跡}    \label{fig:map-matching}
+\end{figure}
