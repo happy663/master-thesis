@@ -16,25 +16,24 @@ BLEビーコンとしてMyBeacon(Aplix)\cite{beacon-aplix}を利用し，BLE信�
 9データのうち3個がBLEビーコンのデータが与えられず，残りの6個にはBLEビーコンのデータが与えられる．
 
 
-
 \begin{table*}[ht]
-	\centering
-	\caption{提供データの概要}
-	\scalebox{0.8}{
-		\begin{tabular}{|l|l|l|l|l|}
-			\hline
-			データタイプ                        & 測定デバイス        & レート                                & 訓練データ & スコアリングデータ    \\ \hline
-			加速度                           & AQUOS Sense 6 & 約100Hz                             & 使用可能  & 使用可能         \\ \hline
-			角速度                           & AQUOS Sense 6 & 約100Hz                             & 使用可能  & 使用可能         \\ \hline
-			磁気                            & AQUOS Sense 6 & 約100Hz                             & 使用可能  & 使用可能         \\ \hline
-			BLE RSSI                      & AQUOS Sense 6 & 10Hzのビーコンから送信、AQUOS Sense 6で受信時に記録 & 使用可能  & 使用可能         \\ \hline
-			正解位置 (Ground Truth) (x, y, z) & ZEB-Horizon   & 約100Hz                             & 使用可能  & 始めと終わりのみ使用可能 \\ \hline
-			正解姿勢 (Ground Truth) (四元数)     & ZEB-Horizon   & 約100Hz                             & 使用可能  & 始めと終わりのみ使用可能 \\ \hline
-			正解階層名 (Ground Truth)          & -             & 各パスの1階層名                           & 使用可能  & 使用可能         \\ \hline
-		\end{tabular}
+    \centering
+    \caption{提供データの概要}
+    \begin{tabularx}{\textwidth}{|X|l|X|l|l|}
+        \hline
+        データタイプ & 測定デバイス & レート & 訓練データ & スコアリングデータ \\ \hline
+        加速度 & AQUOS Sense 6 & 約100Hz & 使用可能 & 使用可能 \\ \hline
+        角速度 & AQUOS Sense 6 & 約100Hz & 使用可能 & 使用可能 \\ \hline
+        磁気 & AQUOS Sense 6 & 約100Hz & 使用可能 & 使用可能 \\ \hline
+        BLE RSSI & AQUOS Sense 6 & 10Hzのビーコンから送信、AQUOS Sense 6で受信時に記録 & 使用可能 & 使用可能 \\ \hline
+        正解位置 (Ground Truth) (x, y, z) & ZEB-Horizon & 約100Hz & 使用可能 & 始めと終わりのみ使用可能 \\ \hline
+        正解姿勢 (Ground Truth) (四元数) & ZEB-Horizon & 約100Hz & 使用可能 & 始めと終わりのみ使用可能 \\ \hline
+        正解階層名 (Ground Truth) & - & 各パスの1階層名 & 使用可能 & 使用可能 \\ \hline
+    \end{tabularx}
     \label{table:data}
-	}
 \end{table*}
+
+
 
 xDR Challenge 2023ではPDRベンチマーク標準化委員会によって
 提供された評価フレームワークを使用して評価が行われた．
@@ -72,3 +71,6 @@ l\_caの値の低さは場合局所空間における位置推定誤差の分布
 	\end{tabular}
 	\label{table:evaluation_index}
 \end{table}
+
+
+
