@@ -35,3 +35,5 @@
 
 ## Editor setting files:
 *.code-workspace
+
+*.pdf
