@@ -8,10 +8,19 @@
 \usepackage{booktabs}
 \usepackage{makecell}
 \usepackage{listings}
+
 \usepackage{amsmath}
 \usepackage{xr}
 \usepackage{url}
 \usepackage{tabularx}
+\usepackage{placeins}
+
+
+
+% セクションごとに浮動体を制限
+\let\oldsection\section
+\renewcommand{\section}{\FloatBarrier\oldsection}
+
 
 
 \providecommand{\newblock}{}
@@ -68,5 +77,6 @@
     \include{chap5}
     \include{appendix}
     \include{acknowledgement}
+    \include{achievements}
     \include{reference}
 \end{document}
