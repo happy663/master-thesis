@@ -1,7 +1,5 @@
 
 
-
-
 屋内環境における位置推定において，ユーザの3次元的な位置，特に現在いる階層の把握が必要となる．
 PDRによる2次元軌跡推定では，ユーザの水平面上の移動は追跡できるものの，階層間の移動の検知は難しく，
 特に複数階層を有する大規模な商業施設やオフィスビルでの屋内ナビゲーションにおいて大きな課題となる．
@@ -42,7 +40,7 @@ QRコードやARマーカーを用いる手法は高精度な階層識別が可�
 \begin{figure}[h]
 	\centering
 	\includegraphics[width=\linewidth]{image/stable.jpg}
-	\caption{マップマッチング補正後の軌跡}    \label{fig:map-matching}
+	\caption{安定歩行区間の検出}    \label{fig:stable_section}
 \end{figure}
 
 \subsection{DBSCANによる階層のグルーピング}
@@ -74,7 +72,7 @@ DBSCANのパラメータは，建物の物理的特性に基づいて設定す�
 さらには一時的な滞在を含む複雑な移動パターンも適切に検出することが可能となる．
 
 \subsection{適用例}
-本手法を実データに適用した例を図\ref{fig:pressure_analysis}に示す．
+本手法を実データに適用した例を図\ref{fig:move_between_floor}に示す．
 この例では，気圧データから複数の階層が識別され，
 それぞれの階層における滞在時間と移動の様子が明確に可視化されている．
 気圧データの分析から，各階層を代表する気圧値が物理的に妥当な間隔で分離されており，
@@ -87,7 +85,8 @@ DBSCANのパラメータは，建物の物理的特性に基づいて設定す�
 3次元位置推定に有効であることを示している．
 
 
-
-
-
-
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=\linewidth]{image/move_between_floor.jpg}
+	\caption{適用例}    \label{fig:move_between_floor}
+\end{figure}
