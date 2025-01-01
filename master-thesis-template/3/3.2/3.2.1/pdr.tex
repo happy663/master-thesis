@@ -17,8 +17,8 @@ OrientationEstimator，TrajectoryCalculatorの3つの主要なクラスが連携
     \caption{PDRの主要クラス構成}
     \label{fig:pdr-class}
 \end{figure}
-% TODO:こっちもbuilderパターンを採用してもよさそうな気がしてきた
-% TODO:図の文字が小さくて読めない，図を大きくするといいかも
+% TODO:2.こっちもbuilderパターンを採用してもよさそうな気がしてきた
+% TODO:3.図の文字が小さくて読めない，図を大きくするといいかも
 
 \subsubsection{システム構成}
 
@@ -53,6 +53,7 @@ OrientationEstimator，TrajectoryCalculatorの3つの主要なクラスが連携
 PDRによる位置推定の処理フローを図\ref{fig:pdr-flow}に示す．本システムでは，センサデータの
 入力から最終的な軌跡の出力まで，以下の段階を経て処理が行われる．
 
+% TODO 3.図がおかしいので絶対修正する
 \begin{figure}[H]
     \centering
     \includegraphics[width=\linewidth]{image/pdr-flow-diagram.pdf}
@@ -102,7 +103,7 @@ y_{n+1} = y_n + L \sin(\theta_n)
 推定進行方向を表す．また，初期位置が与えられている場合は，その値を$(x_0, y_0)$として
 使用する．さらに，座標系の定義に応じて，必要な座標変換（x軸やy軸の反転など）も
 この段階で適用される．
-% TODO: ここに中間報告で使用した計算が積み重なっていくのがわかる図があるといいかも
+% TODO: 2.ここに中間報告で使用した計算が積み重なっていくのがわかる図があるといいかも
 
 このように，各クラスが明確な役割分担の下で連携し，PDRによる位置推定を
 実現している．また，この設計により，各処理段階での改良や機能追加が容易となっている．
@@ -115,7 +116,7 @@ y_{n+1} = y_n + L \sin(\theta_n)
 	\includegraphics[width=\linewidth]{image/step_detect.jpg}
 	\caption{加速度を利用したステップ検出}    \label{fig:step_detect}
 \end{figure}
-% TODO: 下の図は時間に数値があるのにこちらにはない，統一した方がいい
+% TODO: 2.下の図は時間に数値があるのにこちらにはない，統一した方がいい
 
 
 \begin{figure}[H]

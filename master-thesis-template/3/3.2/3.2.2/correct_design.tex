@@ -14,7 +14,7 @@ TrajectoryCorrectorは補正処理の中核となるクラスであり，他の�
 必要な補正手法を直感的に指定できる．これは特に，利用可能な環境情報が
 状況によって異なる場合に有用である．例えば，フロアマップのみが利用可能な
 環境では，以下のようにMapMatcherによる補正のみを指定できる：
-% TODO:クラス単体でも使用できることを主張してもいいかも
+% TODO:2.クラス単体でも使用できることを主張してもいいかも
 
 \begin{lstlisting}
 corrector = TrajectoryCorrector.builder(pdr_estimator)
@@ -37,7 +37,7 @@ TrajectoryCorrectorsBuilderを通じて必要な補正手法を指定し，build
 メソッドによってTrajectoryCorrectorのインスタンスを生成する．その後，
 estimate\_and\_correct\_trajectoryメソッドを呼び出し，指定された
 補正手法が順次適用され，最終的な補正軌跡が得られる．
-% TODO: whyがない○○しました．の後の何故の部分がない
+% TODO: 2.whyがない○○しました．の後の何故の部分がない
 この設計により，環境に応じて適切な補正手法を選択できるだけでなく，
 将来的な拡張性も確保されている．例えば，新たに磁気フィンガー
 プリントを用いた補正手法を追加する場合，以下の手順で実装できる：
@@ -48,12 +48,10 @@ estimate\_and\_correct\_trajectoryメソッドを呼び出し，指定された
   \item TrajectoryCorrectorにMagneticCorrectorを組み込む
 \end{enumerate}
 
-
-
-
 この際，既存の補正クラス（DriftCorrector，MapMatcherなど）のコードは
 一切変更する必要がない．これは各補正クラスが独立して実装されており，
 TrajectoryCorrectorを介して緩やかに結合されているためである．
+% TODO: 2.このあたりいらないか，修正する必要があるかも？
 
 \begin{figure}[H]
     \centering
@@ -61,7 +59,7 @@ TrajectoryCorrectorを介して緩やかに結合されているためである�
     \caption{補正における主要クラス設計}
     \label{fig:corrector-class}
 \end{figure}
-% TODO:図の文字が小さくて読めない,図を大きくするといいかも
+% TODO:3.図の文字が小さくて読めない,図を大きくするといいかも
 
 
 
