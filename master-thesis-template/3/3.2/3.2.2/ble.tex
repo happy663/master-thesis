@@ -1,6 +1,6 @@
 
 
-\subsection{BLE基地局情報を用いた初期進行方向の補正}
+\subsubsection{BLE基地局情報を用いた初期進行方向の補正}
 
 フロアマップ情報を用いた初期進行方向補正ではマップの
 存在可能な点の分布によっては正しく機能しない場合があり，
@@ -16,18 +16,6 @@ BLEビーコンの受信電波DFとBLEビーコンの基地局DFのカラム名�
 推定した軌跡の受信したBLEビーコンの基地局の座標との距離を計算する．
 この総和が最小となるような回転角度をグリッドサーチで探し最適な角度に補正を行う．
 
-\begin{lstlisting}[caption={BLEビーコンの基地局の位置情報を\\使用した初期進行方向補正}, label=lst:rotate-trajectory-using-ble]
-def rotate_trajectory_to_optimal
-		_alignment_using_ble(
-    acc_df: pd.DataFrame,
-    angle_df: pd.DataFrame,
-    ble_scans_df: pd.DataFrame,
-    ble_position_df: pd.DataFrame,
-    ground_truth_first_point: dict[Axis2D, float]
-) -> tuple[pd.DataFrame, pd.DataFrame]:
-\end{lstlisting}
-
-
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=\linewidth]{image/ble-beacon-position.jpg}
@@ -40,31 +28,4 @@ def rotate_trajectory_to_optimal
 	\caption{強いビーコン電波を受信した際の\\時間的に近い軌跡の座標}    \label{fig:ble-merge}
 \end{figure}
 
-\begin{table}[ht]
-  \caption{BLEビーコンの受信電波 DF}
-	\centering
-	\begin{tabular}{lll}
-		\toprule
-		カラム名      & 単位    & データ型  \\
-		\midrule
-		ts        & s (秒) & float \\
-		bdaddress & なし    & str   \\
-		rssi      & dBm   & int   \\
-		\bottomrule
-	\end{tabular}
-\end{table}
 
-\begin{table}[ht]
-	\caption{BLEビーコン基地局 DF}
-	\centering
-	\begin{tabular}{lll}
-		\toprule
-		カラム名        & 単位 & データ型  \\
-		\midrule
-		bdaddress   & なし & str   \\
-		x           & m  & float \\
-		y           & m  & float \\
-		floor\_name & なし & str   \\
-		\bottomrule
-	\end{tabular}
-\end{table}

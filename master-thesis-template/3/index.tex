@@ -3,12 +3,12 @@
 \thispagestyle{myheadings}
 本章では，屋内位置推定ライブラリの要求仕様の検討およびその実装について述べる。
 節3.1ではライブラリの要求仕様について詳述する．
-節3.2では，軌跡の画像と関数を用いて，どのような補正を行っているかを示す．
-節3.3では，気圧データを用いた3次元的な位置推定について示す．
+節3.2では軌跡の画像と関数を用いて，どのような補正を行っているかを示す．
+節3.3では気圧データを用いた3次元的な位置推定について示す．
+% TODO: PALKIAの名前を出してもいいかもしれない
 
-\section{要求仕様}
 
-\input{./3/required.tex}
+\input{./3/3.1/required.tex}
 
 
 \section{xDR Challenge 2023環境における平面的な位置推定}
@@ -32,15 +32,23 @@ xDR Challenge 2023の環境は，フロアマップ情報，各ビーコンの�
 xDR Challenge 2023の環境は後述する評価システムが確立されており，本ライブラリの有効性を検証する環境が整備されている．
 よってこの環境を基に補正アルゴリズム実装の検討および有効性の検証を行う．
 
-\input{./3/pdr.tex}
-\input{./3/remove-drift.tex}
-\input{./3/rotate-trajectory-map.tex}
-\input{./3/ble.tex}
-\input{./3/ble-fingerprint.tex}
-\input{./3/map-matching.tex}
+\input{./3/3.2/3.2.1/pdr.tex}
 
+
+\subsection{軌跡の補正}
+
+PDR処理で得られた軌跡には、前節で示したように2つの主要な課題がある。
+これらの課題に対処するため、本ライブラリでは複数の補正手法を提供している。
+各補正手法は異なるアプローチで軌跡の改善を試みるが、これらを効果的に
+組み合わせることで、より高精度な位置推定が可能となる。
+
+\input{./3/3.2/3.2.2/correct_design.tex}
+\input{./3/3.2/3.2.2/remove-drift.tex}
+\input{./3/3.2/3.2.2/rotate-trajectory-map.tex}
+\input{./3/3.2/3.2.2/ble.tex}
+\input{./3/3.2/3.2.2/ble-fingerprint.tex}
 
 \section{気圧データを用いた3次元位置推定}
 
-\input{./3/pressure.tex}
+\input{./3/3.3/pressure.tex}
 

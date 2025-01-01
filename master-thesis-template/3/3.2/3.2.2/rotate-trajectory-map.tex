@@ -1,8 +1,7 @@
 
 
 
-\subsection{フロアマップを用いた初期進行方向の補正}
-
+\subsubsection{フロアマップを用いた初期進行方向の補正}
 
 図\ref{fig:pdr-remove-drift}の軌跡の問題点として初期進行方向の誤差がある．
 初期進行方向が誤っていると，歩行者の実際の移動経路と大きく異なる軌跡になる．
@@ -27,33 +26,6 @@
 	\includegraphics[width=\linewidth]{image/floor-map.jpg}
   \caption{関数に与えられるフロアマップ情報} \label{fig:floor-map}
 \end{figure}
-
-
-\begin{lstlisting}[caption={フロアマップ情報を使用した  \\初期進行方向補正}, label=lst:pdr-rotate,float =h]
-def rotate_trajectory_to
-    _optimal_alignment_using_map(
-    acc_df: pd.DataFrame,
-    angle_df: pd.DataFrame,
-    floor_map_dict: dict[str, np.ndarray],
-    floor_name: str,
-    dx: float,
-    dy: float,
-    ground_truth_first_point: dict[Axis2D, float]
-) -> tuple[pd.DataFrame, pd.DataFrame]:
-
-\end{lstlisting}
-
-\begin{table}[ht]
-	\caption{フロマップ DICT}
-	\centering
-	\begin{tabular}{lll}
-		\hline
-		      & \textbf{データ型}       & \textbf{説明}             \\ \hline
-		key   & \texttt{str}        & floorの名前                \\ \hline
-		value & \texttt{np.ndarray} & \makecell{フロアマップの画像データ. \\各フロアのブール値の\\NumPy配列} \\ \hline
-	\end{tabular}
-	\label{tab:map-dict}
-\end{table}
 
 \begin{figure}[ht]
 	\centering
