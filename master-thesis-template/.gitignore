@@ -36,6 +36,6 @@
 ## Editor setting files:
 *.code-workspace
 
-*.pdf
+thesis.pdf
 
 *.DS_Store
