@@ -1,57 +1,51 @@
 
 \subsubsection{補正手法の設計}
 
+PDRによる位置推定の精度を向上させるため,本ライブラリは複数の補正手法を
+組み合わせた設計を採用している．これらの補正手法を統合的に扱うために,
+TrajectoryCorrectrorクラスを中心とした設計を提供している．
+図\ref{fig:corrector-class}に示すように,補正処理はTrajectoryCorrector,
+DriftCorrector,MapMatcher,BLECorrectorの4つの主要なクラスから構成されており,
+それぞれが特定の補正機能を担当している．各補正クラスは独立して実装されており,
+TrajectoryCorrectorを介して緩やかに結合され,保守性と拡張性を実現している．
 
-PDRによる軌跡の補正には，様々なアプローチが存在する．
-複数の補正手法を統合的に扱うため，本ライブラリではTrajectoryCorrector
-クラスを提供している．図\ref{fig:corrector-class}にTrajectoryCorrectorsのクラス構成を示す．
-補正処理はTrajectoryCorrector，DriftCorrector，MapMatcher，BLECorrectorの4つの主要なクラスによって構成されている．
+補正処理の柔軟な設定を可能にするため,TrajectoryCorrectorクラスは
+Builderパターンを採用している．
+これにより,複雑な補正処理の設直感的なインターフェースで提供が可能となっている．
+利用者はwith\_floor\_map()やwith\_ble\_data()などのメソッドチェーンを使用して
+利用可能な環境情報に応じて必要な補正手法を選択的に組み合わせられる．
+Listing\ref{lst:trajectory-corrector}にその例を示す．
+例のようにフロアマップのみが利用可能な環境では,MapMatcherによる補正のみを
+指定し,BLEビーコンも利用可能な環境では両方の補正を組み合わせて使用する
+できる．また各補正クラスは単体でも使用可能であり,特定の補正処理
+のみを実行したい場合は,直接該当するクラスを利用を利用できる．
 
-TrajectoryCorrectorは補正処理の中核となるクラスであり，他の補正クラスを
-統括する役割を持つ．このクラスはBuilderパターンを採用しており，これにより
-複雑なオブジェクト生成プロセスをシンプルなインターフェースで提供している．
-具体的には，with\_floor\_map()やwith\_ble\_data()などのメソッドチェーンにより，
-必要な補正手法を直感的に指定できる．これは特に，利用可能な環境情報が
-状況によって異なる場合に有用である．例えば，フロアマップのみが利用可能な
-環境では，以下のようにMapMatcherによる補正のみを指定できる：
-% TODO:2.クラス単体でも使用できることを主張してもいいかも
-
-\begin{lstlisting}
+\begin{lstlisting}[caption={TrajectoryCorrectorの使用例},label=lst:trajectory-corrector,float=h]
+# フロアマップのみを使用する場合
 corrector = TrajectoryCorrector.builder(pdr_estimator)
     .with_floor_map(floor_map)
     .build()
-\end{lstlisting}
-
-また，BLEビーコンも利用可能な場合は，以下のように両方の補正を指定できる：
-
-\begin{lstlisting}
+# フロアマップとBLEビーコンを組み合わせる場合
 corrector = TrajectoryCorrector.builder(pdr_estimator)
     .with_floor_map(floor_map)
     .with_ble_data(ble_scans, beacon_positions)
     .build()
 \end{lstlisting}
 
+この設計の特徴は,新たな補正手法の追加が容易である点にある．例えば,
+磁気フィンガープリントを用いた補正手法を追加する場合,MagneticCorrector
+クラスを新規作成し,TrajectoryCorrectorsBuilderに対応するメソッドを
+追加するだけで良い．この際,既存の補正クラスのコードを変更する必要が
+ないため,システムの安定性を保ちながら機能を拡張するできる．
+また,各補正手法は独立して実装されているため,個々の手法の改良や
+バグ修正も他の機能に影響を与えず実装できる．
 
-図\ref{fig:corrector-sequence}は実際の使用例を示している．利用者は
-TrajectoryCorrectorsBuilderを通じて必要な補正手法を指定し，build
-メソッドによってTrajectoryCorrectorのインスタンスを生成する．その後，
-estimate\_and\_correct\_trajectoryメソッドを呼び出し，指定された
-補正手法が順次適用され，最終的な補正軌跡が得られる．
-% TODO: 2.whyがない○○しました．の後の何故の部分がない
-この設計により，環境に応じて適切な補正手法を選択できるだけでなく，
-将来的な拡張性も確保されている．例えば，新たに磁気フィンガー
-プリントを用いた補正手法を追加する場合，以下の手順で実装できる：
-
-\begin{enumerate}
-  \item MagneticCorrectorクラスを新規作成し，補正のロジックを実装
-  \item TrajectoryCorrectorsBuilderにwith\_magnetic\_data()メソッドを追加
-  \item TrajectoryCorrectorにMagneticCorrectorを組み込む
-\end{enumerate}
-
-この際，既存の補正クラス（DriftCorrector，MapMatcherなど）のコードは
-一切変更する必要がない．これは各補正クラスが独立して実装されており，
-TrajectoryCorrectorを介して緩やかに結合されているためである．
-% TODO: 2.このあたりいらないか，修正する必要があるかも？
+図\ref{fig:corrector-sequence}は,これらの補正処理の連携を示している．
+TrajectoryCorrectorsBuilderを通じて必要な補正手法を指定し,buildメソッド
+によってTrajectoryCorrectorのインスタンスを生成する．その後,
+estimate\_and\_correct\_trajectoryメソッドを呼び出すと,指定された
+補正手法が順次適用され,最終的な補正軌跡が得られる．この処理フローにより,
+複数の補正手法を組み合わせた高度な位置推定が可能となっている．
 
 \begin{figure}[H]
     \centering
@@ -60,8 +54,6 @@ TrajectoryCorrectorを介して緩やかに結合されているためである�
     \label{fig:corrector-class}
 \end{figure}
 % TODO:3.図の文字が小さくて読めない,図を大きくするといいかも
-
-
 
 \begin{figure}[H]
     \centering
