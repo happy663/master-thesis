@@ -15,6 +15,8 @@ PDRでは角速度から進行方向を求めてその方向を元に歩行軌�
 
 
 % TODO 2.captionの名前は検討した方がいいかも
+% TODO 2.やっぱり関数ものせた方がいいかも，何の情報を入力するという部分は必要かもしれない(要検討)
+% TODO: 2.しかし軌跡を引数に与えていないから違和感がある．内部的にはenhanceSensorDataの角度をみて修正してる．コードごと消すか
 \begin{lstlisting}[caption={DriftCorrector},label=lst:drift-corrector,float=h]
 # 正解座標データ
 ground_truth = pd.DataFrame({
@@ -58,19 +60,6 @@ DriftCorrectorクラスは，正解座標との比較に基づいて角速度デ
 また，この値の範囲は外部から変更可能であり，使用するセンサーの特性に応じて調整できる．
 
 % TODO:2.ここにパワポにあるようなグリードサーチしている感がある図を載せるといいかも
-以下は，DriftCorrectorの使用例である：
-\begin{lstlisting}
-# DriftCorrectorの初期化
-drift_corrector = DriftCorrector(
-    pdr_estimator=estimator,  # PDREstimatorインスタンス
-    gt_data=ground_truth   # 既知の座標データ
-
-
-)
-# ドリフト補正の実行
-corrected_trajectory = drift_corrector.correct_drift()
-\end{lstlisting}
-% TODO: 3.軌跡を引数に与えていないから違和感がある．内部的にはenhanceSensorDataの角度をみて修正してる．コードごと消すか
 
 図\ref{fig:pdr-remove-drift}に示すように，ドリフト補正後の軌跡は
 元の軌跡と比較して正解軌跡の形状に近づいている．特に，既知の座標間の

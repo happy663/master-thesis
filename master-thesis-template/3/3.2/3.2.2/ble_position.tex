@@ -66,8 +66,8 @@ ble_corrector = BLECorrector(
 設定されており，およそ3メートル程度の範囲内での受信信号に相当する．
 この閾値は環境やユースケースに応じて調整可能であり，BLECorrectorの
 初期化時にrssi\_thresholdパラメータとして指定できる．例えば
-与えられるBLEスキャンデータの電波強度が大きい割合が小さい場合は80dBm程度に緩和し，
-逆に電波強度が大きい割合が多い場合は-65dbm程度に厳格化するといった調整が可能である．
+与えられるBLEスキャンデータの電波強度が強い割合が小さい場合は80dBm程度に緩和し，
+逆に割合が多い場合は-65dbm程度に厳格化するといった調整が可能である．
 
 この手法の特徴は建物の構造に依存せず，BLEビーコンが適切に配置されて
 いれば任意の環境で適用可能な点にある．またRSSIの閾値を調整することで，
@@ -81,17 +81,15 @@ ble_corrector = BLECorrector(
 青色のポイントは対応するBLEビーコン基地局の位置を示している．
 
 最後にこれらの対応点間の距離の総和が最小となるように軌跡全体の回転角度を
-最適化する．具体的にはある回転角度$\theta$における総距離$D(\theta)$を
-以下の式で表す：
+最適化する．受信時刻$t$における軌跡上の点と対応するビーコン基地局との
+距離の総和$D(\theta)$を以下の式で表す：
 
 \begin{equation}
-D(\theta) = \sum_{i=1}^{N} \sqrt{(x_i(\theta) - b_x^i)^2 + (y_i(\theta) - b_y^i)^2}
+D(\theta) = \sum_{t} \sqrt{(x_t(\theta) - b_x^t)^2 + (y_t(\theta) - b_y^t)^2}
 \end{equation}
 
-ここで$(x_i(\theta), y_i(\theta))$は角度$\theta$で回転させた軌跡上の
-$i$番目のポイント，$(b_x^i, b_y^i)$は対応するBLEビーコン基地局の座標を表す．
-$N$は対応点ペアの総数である．最適な回転角度$\theta_{\mathrm{opt}}$は，
-この距離の総和を最小化する角度として以下のように定義される：
+ここで$(x_t(\theta), y_t(\theta))$は角度$\theta$で回転させた軌跡上の
+時刻$t$における座標，$(b_x^t, b_y^t)$は対応するBLEビーコン基地局の座標を表す．
 
 \begin{equation}
 \theta_{\mathrm{opt}} = \arg\min_{\theta \in [0, 2\pi]} D(\theta)
@@ -100,6 +98,12 @@ $N$は対応点ペアの総数である．最適な回転角度$\theta_{\mathrm{
 この最適化問題は回転角度を$[0, 2\pi]$の範囲で探索することで解かれる．
 この探索によりBLEビーコン基地局の位置と推定軌跡の位置関係が最も
 整合する角度を見つけ最適な初期進行方向を決定できる．
+% TODO 2.グリードサーチしている文章の説明がない気がする
 
 
 
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\linewidth]{image/ble-merge.jpg}
+	\caption{BLEビーコンの基地局の位置情報}    \label{fig:ble-merge}
+\end{figure}
