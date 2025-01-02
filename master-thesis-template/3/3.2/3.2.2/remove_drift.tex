@@ -17,7 +17,7 @@ PDRでは角速度から進行方向を求めてその方向を元に歩行軌�
 % TODO 2.captionの名前は検討した方がいいかも
 % TODO 2.やっぱり関数ものせた方がいいかも，何の情報を入力するという部分は必要かもしれない(要検討)
 % TODO: 2.しかし軌跡を引数に与えていないから違和感がある．内部的にはenhanceSensorDataの角度をみて修正してる．コードごと消すか
-\begin{lstlisting}[caption={DriftCorrector},label=lst:drift-corrector,float=h]
+\begin{lstlisting}[caption={DriftCorrectorの使用例},label=lst:drift-corrector,float=h]
 # 正解座標データ
 ground_truth = pd.DataFrame({
     'ts': [0, 180],           # タイムスタンプ（秒）

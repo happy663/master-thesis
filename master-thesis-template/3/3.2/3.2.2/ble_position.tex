@@ -29,10 +29,11 @@
 
 % TODO: 2.データが1つしかないように見える．複数個あるのを表現した方がいいと思う．
 % TODO: 2.captionの名前は検討した方がいいかも
-\begin{lstlisting}[caption={BLECorrector},label=lst:ble-beacon-position,float=h]
+\begin{lstlisting}[caption={BLECorrectorの使用例},label=lst:ble-beacon-position,float=h]
 # BLEビーコンの基地局情報
 beacon_positions = pd.read_csv('beacon_positions.csv')
 # ID: "f2:65:d1:87:a4:2c"
+
 # x: 15.2  # メートル
 # y: 24.8  # メートル
 # floor: "floor_5"
@@ -100,10 +101,10 @@ D(\theta) = \sum_{t} \sqrt{(x_t(\theta) - b_x^t)^2 + (y_t(\theta) - b_y^t)^2}
 整合する角度を見つけ最適な初期進行方向を決定できる．
 % TODO 2.グリードサーチしている文章の説明がない気がする
 
-
-
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\linewidth]{image/ble-merge.jpg}
 	\caption{BLEビーコンの基地局の位置情報}    \label{fig:ble-merge}
 \end{figure}
+
+
