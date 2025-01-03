@@ -5,7 +5,7 @@
 図\ref{fig:pdr-remove-drift}の軌跡には，初期進行方向の誤差という重要な
 問題が残されている．初期進行方向が誤っていると，その後の全ての推定位置が
 実際の移動経路から大きく逸れることになる．この問題に対処するため，本ライブラリ
-ではMapMatcherクラスを提供している．
+ではMapMatchCorrectorクラスを提供している．
 
 この手法を利用するために必要な情報はフロアマップ情報である．フロアマップは
 建物の構造を表す2次元の画像データとして与えられ，歩行可能な領域と
@@ -17,7 +17,7 @@
 
 % TODO: 2.修正関数の呼出しの部分は削除したがそれでよかったのだろうか
 % TODO: 2.captionの名前は検討した方がいいかも
-\begin{lstlisting}[caption={MapMatcherの使用例},label=lst:rotate-trajectory-using-ble-fingerprint,float=ht]
+\begin{lstlisting}[caption={MapMatchCorrectorの使用例},label=lst:rotate-trajectory-using-ble-fingerprint,float=ht]
 # フロアマップの読み込み
 floor_map = FloorMap(
     floor_name="floor_5",
@@ -26,15 +26,15 @@ floor_map = FloorMap(
     dy=0.01   # y方向の1ピクセルあたりの距離(m)
 )
 
-# MapMatcherの初期化
-map_matcher = MapMatcher(
+# MapMatchCorrectorの初期化
+map_match_corrector = MapMatchCorrector(
     pdr_estimator=estimator,
     floor_map=floor_map
 )
 \end{lstlisting}
 
 % TODO 3.どのような情報をあたえるのが重要かという所を強調したい．今回の場合はフロアマップの情報を与えるのが重要
-MapMatcherクラスは，フロアマップの構造的特徴を利用して最適な初期進行方向を
+MapMatchCorrectorクラスは，フロアマップの構造的特徴を利用して最適な初期進行方向を
 推定する．この手法は，多くの屋内環境において壁や通路が直交する形で構成されているという特徴を活用している．
 図\ref{fig:floor-map}に実際のフロアマップを示す．
 このマップの灰色の部分が歩行可能領域であり，白色の部分が歩行不可能領域である．
