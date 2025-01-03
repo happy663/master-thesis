@@ -5,7 +5,7 @@
 BLEビーコンの基地局の位置情報を用いた補正手法は効果的である一方，基地局の
 正確な位置情報を得るのが困難な場合がある．このような状況に対応するため，
 本ライブラリではフィンガープリント（FP）を用いた補正手法も提供している．
-この手法は，BLECorrectorクラスのFP機能として実装されている．
+この手法は，WirelessSignalCorrectorクラスのFP機能として実装されている．
 
 この手法を利用するために必要な情報は2つある．1つ目は前節と同様の
 歩行者が移動中に収集したBLEビーコンのスキャンデータである．2つ目は
@@ -17,8 +17,8 @@ BLEビーコンの基地局の位置情報を用いた補正手法は効果的�
 この手法の利用例を以下に示す：
 
 
-% TODO:3 BLECorrectorが被ってるのでキャプション名を変更した方がいいかも
-\begin{lstlisting}[caption={BLECorrectorの使用例},label=lst:rotate-trajectory-using-ble-fingerprint,float=ht]
+% TODO:3 WiressSignalCorrectorが被ってるのでキャプション名を変更した方がいいかも
+\begin{lstlisting}[caption={WiressSignalCorrectorの使用例},label=lst:rotate-trajectory-using-ble-fingerprint,float=ht]
 # フィンガープリントデータ
 fingerprints = pd.read_csv('fingerprints.csv')
 # ts: 1234567890.123  # 計測時刻（秒）
@@ -28,16 +28,16 @@ fingerprints = pd.read_csv('fingerprints.csv')
 # rssi: -68          # 電波強度（dBm）
 # floor: "floor_5"   # フロア名
 
-# BLECorrectorの初期化と補正の実行
-corrector = BLECorrector(
-    ble_realtime_scans=ble_scans,
-    ble_fingerprints=fingerprints,
+# WiressSignalCorrectorの初期化と補正の実行
+corrector = WiressSignalCorrector(
+    signal_realtime_scans=ble_scans,
+    signal_fingerprints=fingerprints,
     rssi_threshold=-70
 )
 \end{lstlisting}
 
 
-BLECorrectorのFPを用いた補正処理は，以下のように行われる．まず，
+WiressSignalCorrectorのFPを用いた補正処理は，以下のように行われる．まず，
 歩行者から受信した各BLE信号について，受信時刻$t$ごとに位置推定を行う．
 各時刻において，受信したビーコンIDと同じデータポイントをFPデータベースから
 抽出する．
