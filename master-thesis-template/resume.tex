@@ -103,7 +103,7 @@ StepEstimatorは加速度信号の変動パターンから歩行動作を検出�
 OrientationEstimatorは角速度の積分による方向推定を行う．
 TrajectoryCalculatorは推定された歩幅，歩行タイミング，方向から実際の移動軌跡を計算する．
 
-補正処理はTrajectoryCorrectrorクラスを中心とした設計を採用している．
+補正処理はTrajectoryCorrectorクラスを中心とした設計を採用している．
 このクラスはDriftCorrector，MapMatchCorrector，WirelessSignalCorrectorの3つの補正クラスを統合的に管理し，
 それぞれが特定の補正機能を担当する．各補正クラスは独立したモジュールとして実装され，新しい補正手法の追加時に
 既存の処理に影響を与えない．またビルダーパターンを採用し，with\_floor\_map()やwith\_wireless\_signal()などの
