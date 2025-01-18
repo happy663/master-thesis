@@ -1,6 +1,13 @@
 {
-  "plugins": ["latex2e"],
+  "plugins": [
+    "latex2e"
+  ],
   "rules": {
+    "prh": {
+      "rulePaths": [
+        "./prh.yml"
+      ]
+    },
     "ja-hiragana-fukushi": true,
     "ja-hiragana-hojodoushi": true,
     "preset-ja-technical-writing": {
@@ -10,7 +17,9 @@
       },
       "max-kanji-continuous-len": {
         "max": 8,
-        "allow": ["倍精度浮動小数点数"]
+        "allow": [
+          "倍精度浮動小数点数"
+        ]
       },
       "no-doubled-joshi": false,
       "sentence-length": false
@@ -18,11 +27,13 @@
     "preset-japanese": {
       "no-doubled-joshi": {
         "min_interval": 1,
-        "allow": ["が"]
+        "allow": [
+          "が"
+        ]
       },
       "sentence-length": {
         "severity": "warning",
-        "max": 100
+        "max": 120
       }
     }
   }
