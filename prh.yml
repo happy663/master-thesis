@@ -7,3 +7,6 @@ rules:
     pattern: /[。｡]/g
   - expected: ，
     pattern: /[、､]/g
+  - expected: ""
+    pattern: /こと/g
+    prh: "「こと」という表現を使用しています。簡潔な表現への修正を検討してください。"
