@@ -22,7 +22,14 @@
         ]
       },
       "no-doubled-joshi": false,
-      "sentence-length": false
+      "sentence-length": false,
+      "ja-no-redundant-expression": {
+        "dictOptions": {
+          "dict5": {
+            "disabled": true
+          }
+        }
+      }
     },
     "preset-japanese": {
       "no-doubled-joshi": {
